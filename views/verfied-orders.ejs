@@ -1,0 +1,28 @@
+<%- include('parts/header')%>
+
+<%- include('parts/navbar')%>
+
+<div class="container text-center">
+        <br><br>
+    <h3>Verfied Order </h3>
+    <form action="/order" method="post">
+        <input type="hidden" name="cartId" value="<%=cartId%>">
+        <input type="text" class="form-control" name="address" placeholder="Address">
+       <% let emailError=validationError.find(err=>err.param == 'address') %>
+        <% if(emailError)  {%>
+            <p class="alert alert-danger">
+                <%= emailError.msg%>
+            </p>
+            <%}%>
+
+        <input type="submit" class="btn btn-primary" name="btnLogin" value="Order">
+
+    </form>
+<br>
+    <br>
+
+</div>
+
+
+
+<%-include('parts/footer')%>

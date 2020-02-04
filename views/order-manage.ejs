@@ -1,0 +1,116 @@
+<%- include('parts/header') %>
+<%- include('parts/navbar') %>
+
+<br>
+<div class="container">
+
+
+        <% if(validationError) {%>
+            <br>
+            <br>
+            <p class="alert alert-danger">
+                <%=validationError.msg%>
+            </p>
+            <%}%>
+       
+
+
+
+    <% if(orders.length === 0 ) {%>
+        <p class="alert alert-danger">
+            There Is No Orders In Orders
+        </p>
+        <%} else {%>
+
+            <form action="/admin/manage" method="GET">
+<div class="row">
+        <div class="col col-12 col-md-6 col-lg-6 col-x1-3">
+                <input type="submit" class="btn btn-primary" value="All Order"  >
+                <input type="submit" class="btn btn-primary" value="pinding" name="status" formaction="/admin/manage">
+                <input type="submit" class="btn btn-primary" value="send" name="status" formaction="/admin/manage">
+
+            </div>
+            <div class="col col-12 col-md-6 col-lg-6 col-x1-3">
+       
+            <input type="submit" class="btn btn-primary" value="Completion">
+        </div>
+
+
+</div>    
+<br>            
+        <div class="row">
+        <div class="col col-12 col-md-6 col-lg-6 col-x1-3">
+                <input type="text" class="form-control" name="email" value="All Order">
+            </div>
+            <div class="col col-12 col-md-6 col-lg-6 col-x1-3">
+       
+            <input type="submit" class="btn btn-primary" value="Search">
+        </div>
+
+        
+</div>      
+<br><br>          
+                
+                </form>
+            
+
+        <table border="1" >
+            <thead>
+                <td>No</td>
+                <td>Product Name</td>
+                <td>Amount</td>
+                <td>Cost</td>
+                <td>address</td>
+                <td>Status</td>
+                <td>Time</td>
+                <td></td>
+            </thead>
+            <tbody>
+                <% for(let i=0;i<orders.length ;i++) { %>
+                    <tr>
+                        <td><%= i+1%></td>
+                        <td><%=orders[i].name%></td>
+                        <td><%=orders[i].amount%></td>
+                        <td><%=orders[i].cost %></td>
+                        <td><%=orders[i].address %></td>
+                        <form method="POST">
+                        <td>
+                                    <input type="text" name="status" value="<%=orders[i].status %>">
+                        </td>
+                        <td><%=orders[i].time %></td>
+                            <td>
+                                <input type="hidden" name="orderId" value="<%=orders[i]._id%>">
+                                <input type="submit" class="btn btn-primary" value="save" formaction="/admin/save">
+
+                            </td>
+                        </form>
+                    </tr>
+                    <%}%>
+            </tbody>
+            
+        </table>
+
+
+            <%}%>
+
+
+            <br>
+            <br>
+            <div>
+                    <% if(orders.length != 0 ) {%>
+
+                <form method="POST">
+                    <input type="submit" value="Cancel All " formaction="/order/delete-all">
+                    <!-- <input type="submit" value="Order All " formaction="/cart/order-all"> -->
+                </form>
+                <%} %>
+
+            </div>
+
+
+</div>
+
+
+
+
+<%- include('parts/footer')%></div>
